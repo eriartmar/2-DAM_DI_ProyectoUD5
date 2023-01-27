@@ -11,4 +11,4 @@ Este proyecto va a tener una interfaz gráfica de usuario en la que vamos a acce
 y a poder gestionar datos de esta
 
 ## Lenguajes Utilizados:
-Markdown, HTML
+Markdown, HTML, CSS, JavaScript
