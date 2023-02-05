@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,14 +16,21 @@
         type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Incluyo la dependencia con jquery para poder utilizar ajax -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous">
+        </script>
+
 </head>
 
 <body id="page-top">
     <!--
         Se tiene que mostrar las películas que son tendencia. Para ello:
             1. Se carga en un json las peliculas
-            2. Con un método se acceden a las peliculas del json
-            3. Se muestra por pantalla cada pelicula
+            2. Se recorre el json con un bucle (cada iteración es uan película)
+            3. Se crea una estructura HTML usando boostrap dentro del bucle que muestre la 
+                información de las películas.
 
         Para cada pelicula mostrada se tiene que mostrar lo siguiente: 
             -Título (original_title para versión original, title si lo pides en otro idioma)
@@ -35,28 +43,14 @@
             -Ingresos en taquilla (revenue)
             -Puntuación media (vote_average)
     -->
-    <!--
+    <!-- Se declara las constantes que nos van a ayudar a llamar a la API -->
     <script>
+        const API_URL = "https://api.themoviedb.org/3";
         const API_KEY = "234a85283f92d75eb7b8cab777ac5174";
-        $(document).ready(function () {
-          // Ejecuto la llamada a la API
-        $.ajax({
-            // En este caso, solicito películas que tengan "fight club" en sus metadatos 
-            url:
-                "https://api.themoviedb.org/3/trending/movie/day?api_key=" +
-                API_KEY,
-            dataType: "jsonp",
-            jsonpCallback: "testing",
-        }).done(function (response) {
-              // En caso de obtener resultados
-            for (var i = 0; i < response.results.length; i++) {
-                // Voy mostrando línea a línea el título de las películas coincidentes
-                console.log(response.results[i].title);
-            }
-            });
-        });
+        const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
     </script>
-    -->
+
+
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
@@ -70,7 +64,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#portfolio">Peliculas de la semana</a></li>
+                            href="#portfolio">Peliculas en tendencia</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                             href="#about">Buscar</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
@@ -96,11 +90,11 @@
             <p class="masthead-subheading font-weight-light mb-0">¡Busca todas las películas que te imagines!</p>
         </div>
     </header>
-    <!-- Peliculas de la semana Section-->
+    <!-- Peliculas en tendencia Section-->
     <section class="page-section portfolio" id="portfolio">
         <div class="container">
             <!-- Peliculas de la semana Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Peliculas de la semana</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Peliculas en tendencia</h2>
             <!-- Icon Divider-->
             <div class="divider-custom">
                 <div class="divider-custom-line"></div>
@@ -108,8 +102,9 @@
                 <div class="divider-custom-line"></div>
             </div>
             <!-- Peliculas de la semana Items-->
+            <!--
             <div class="row justify-content-center">
-                <!-- Pelicula Item 1-->
+                Pelicula Item 1
                 <div class="col-md-6 col-lg-4 mb-5">
                     <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
                         <div
@@ -120,7 +115,7 @@
                         <img class="img-fluid" src="assets/img/portfolio/cabin.png" alt="..." />
                     </div>
                 </div>
-                <!-- Portfolio Item 2-->
+                Portfolio Item 2
                 <div class="col-md-6 col-lg-4 mb-5">
                     <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal2">
                         <div
@@ -131,57 +126,88 @@
                         <img class="img-fluid" src="assets/img/portfolio/cake.png" alt="..." />
                     </div>
                 </div>
-
-            </div>
-            <!-- Pelicula x Items-->
-            <div class="row justify-content-center">
-                <!-- Imagen de Pelicula x Item-->
-                <div class="col-md-4 col-lg-2 mb-5">
-
-                </div>
-                <!-- Titulo de Pelicula x Item-->
-                <div class="col-md-6 col-lg-4 mb-5">
-
-                </div>
-                <!-- Icono Favoritos de Pelicula x Item-->
-                <div class="col-md-2 col-lg-1 mb-5">
-
-                </div>
-                <!-- Eslogan de Pelicula x Item-->
-                <div class="col-md-6 col-lg-4 mb-5">
-
-                </div>
-                <!-- Sinopsis de Pelicula x Item-->
-                <div class="col-md-6 col-lg-4 mb-5">
-
-                </div>
-                <!-- Género de Pelicula x Item-->
-                <div class="col-md-6 col-lg-4 mb-5">
-
-                </div>
-                <!-- Productoras de Pelicula x Item-->
-                <div class="col-md-6 col-lg-4 mb-5">
-
-                </div>
-                
-                <!-- Fecha de estreno de Pelicula x Item-->
-                <div class="col-md-6 col-lg-4 mb-5">
-
-                </div>
-                <!-- Duración de Pelicula x Item-->
-                <div class="col-md-6 col-lg-4 mb-5">
-
-                </div>
-                <!-- Ingresos en taquilla de Pelicula x Item-->
-                <div class="col-md-6 col-lg-4 mb-5">
-
-                </div>
-                <!-- Puntuación media de Pelicula x Item-->
-                <div class="col-md-6 col-lg-4 mb-5">
-
-                </div>
-            </div>
+            -->
         </div>
+        <script>
+            $(document).ready(function () {
+                // Ejecuto la llamada a la API
+                $.ajax({
+                    // En este caso, solicito películas que tengan "fight club" en sus metadatos 
+                    url:
+                        "https://api.themoviedb.org/3/trending/movie/week?api_key=" +
+                        API_KEY,
+                    dataType: "jsonp",
+                    jsonpCallback: "testing",
+                }).done(function (response) {
+                    // En caso de obtener resultados
+                    for (var i = 0; i < response.results.length; i++) {
+                        // Pelicula x Items
+                        <div class="row justify-content-center">
+                            {/*Imagen de Pelicula x Item*/}
+                            <div class="col-md-4 col-lg-2 mb-5">
+                                <img src={'${IMAGE_URL}${response.results[i].poster_path}'}/>
+                            </div>
+
+                            {/*Se mete en el div para que estos componentes queden al lado derecho de la imagen, y no debajo*/}
+                            <div class="col-md-8">
+
+                                {/*Titulo de Pelicula x Item*/}
+                                <div class="col-md-6 col-lg-4 mb-5">
+                                    {'${response.results[i].original_title}'}
+                                </div>
+
+                                {/*Icono de Favoritos de Pelicula x Item*/}
+                                <div class="col-md-2 col-lg-1 mb-5">
+
+                                </div>
+
+                                {/*Eslogan de Pelicula x Item*/}
+                                <div class="col-md-6 col-lg-4 mb-5">
+                                    {'${response.results[i].tagline}'}
+                                </div>
+
+                                {/*Sinopsis de Pelicula x Item*/}
+                                <div class="col-md-6 col-lg-4 mb-5">
+                                    {'${response.results[i].overview}'}
+                                </div>
+
+                                {/*Género de Pelicula x Item*/}
+                                <div class="col-md-6 col-lg-4 mb-5">
+                                    {'${response.results[i].genres}'}
+                                </div>
+
+                                {/*Productores de Pelicula x Item*/}
+                                <div class="col-md-6 col-lg-4 mb-5">
+                                    {'${response.results[i].production_companies}'}
+                                </div>
+
+                                <div>
+                                    {/*Fecha de estreno de Pelicula x Item*/}
+                                    <div class="col-md-6 col-lg-4 mb-5">
+                                        {'${response.results[i].release_date}'}
+                                    </div>
+
+                                    {/*Duración de Pelicula x Item*/}
+                                    <div class="col-md-6 col-lg-4 mb-5">
+                                        {'${response.results[i].runtime}'}
+                                    </div>
+
+                                    {/*Ingresos en taquilla de Pelicula x Item*/}
+                                    <div class="col-md-6 col-lg-4 mb-5">
+                                        {'${response.results[i].revenue}'}
+                                    </div>
+
+                                    {/*Puntuación media de Pelicula x Item*/}
+                                    <div class="col-md-6 col-lg-4 mb-5">
+                                        {'${response.results[i].vote_average}'}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                });
+            });
+        </script>
     </section>
     <!-- About Section-->
     <section class="page-section bg-primary text-white mb-0" id="about">
@@ -312,12 +338,18 @@
                 <!-- Footer Social Icons-->
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <h4 class="text-uppercase mb-4">Around the Web</h4>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
+                    <a class="btn btn-outline-light btn-social mx-1"
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"><i
                             class="fab fa-fw fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
+                    <a class="btn btn-outline-light btn-social mx-1"
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"><i
+                            class="fab fa-fw fa-twitter"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1"
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"><i
                             class="fab fa-fw fa-linkedin-in"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1"
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"><i
+                            class="fab fa-fw fa-dribbble"></i></a>
                 </div>
                 <!-- Footer About Text-->
                 <div class="col-lg-4">
