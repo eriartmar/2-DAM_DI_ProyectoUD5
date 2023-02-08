@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- Incluyo la dependencia con jquery para poder utilizar ajax -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="search">
+        <input id="buscador" type="text" placeholder="Inserte la pelicula que buscara" />
+        <button onclick="getApiSearch()" id="boton">Buscar</button>
+    </div>
+    <div id="renderDatos"></div>
+    <script src="buscador.js"></script>
+</body>
+</html>
